@@ -1,12 +1,11 @@
 
-module Api
-  module V1
-    class ToolsController < ApplicationController
 
-
+    class Api::V1::ToolsController < ApplicationController
 
       def index
-        render json: Tool.includes(:user), include: ['user']
+        @tools = Tool.all
+        render json: @tools
+        # render json: Tool.includes(:user), include: ['user']
       end
 
 
@@ -44,5 +43,3 @@ module Api
 
 
     end
-  end
-end

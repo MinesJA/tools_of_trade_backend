@@ -1,9 +1,4 @@
 class TagSerializer < ActiveModel::Serializer
-  attributes :id, :name, :tools
-  has_many :tools
+  attributes :id, :name
 
-  def tools
-    object.tools
-  end
-  
 end

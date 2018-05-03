@@ -132,7 +132,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_model_serializers
+  active_model_serializers (~> 0.10)
   awesome_print
   byebug
   listen (>= 3.0.5, < 3.2)
