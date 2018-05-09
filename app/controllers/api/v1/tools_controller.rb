@@ -17,6 +17,9 @@
 
 
       def create
+        byebug
+
+
         @tool = Tool.new(tools_params)
         @tool.save
       end

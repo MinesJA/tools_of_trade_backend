@@ -1,10 +1,10 @@
-
 module Api
   module V1
     class TagsController < ApplicationController
 
       def index
-        render json: Tag.includes(:tools), include: ['tools']
+        @tags = Tag.all
+        render json: @tags
       end
 
 
@@ -14,6 +14,7 @@ module Api
 
 
       def create
+        binding.pry
 
       end
 
