@@ -9,9 +9,9 @@ class ToolSerializer < ActiveModel::Serializer
     object.user
   end
 
-  def tags
-    object.tags
-  end
+  # def tags
+  #   object.tags
+  # end
 
 
 

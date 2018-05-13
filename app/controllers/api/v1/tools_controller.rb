@@ -17,11 +17,13 @@
 
 
       def create
-        byebug
+        # byebug
 
 
-        @tool = Tool.new(tools_params)
-        @tool.save
+        # @tool = Tool.new(tools_params)
+        # @tool.save
+
+        render json: tool_params
       end
 
 
@@ -38,10 +40,8 @@
       private
 
       def tool_params
-        params.require(:tool).permit(:name, :description, :url, :upvotes, :downvotes, :user_id)
+        params.require(:tool).permit(:name, :description, :url, :tag_strings, :posted_by, :upvotes, :downvotes, :user_id)
       end
-
-
 
 
 
