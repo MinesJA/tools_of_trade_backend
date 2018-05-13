@@ -5,13 +5,12 @@ class ToolSerializer < ActiveModel::Serializer
 
 
   def user
-    # UserSerializer.new(object.user)
     object.user
   end
 
-  # def tags
-  #   object.tags
-  # end
+  def tags
+    object.tags
+  end
 
 
 

@@ -17,19 +17,28 @@
 
 
       def create
-        # byebug
+        @tool = Tool.new(name: tool_params[:name], description: tool_params[:description], url: tool_params[:url])
 
+        @tag_errors = Tag.process_tag_strings(tool_params[:tag_strings], @tool)
+        @user = User.find_or_create_by(name: tool_params[:posted_by])
 
-        # @tool = Tool.new(tools_params)
-        # @tool.save
+        if @tag_errors.none? && @user.valid?
+          @tool.user = @user
 
-        render json: tool_params
+          if @tool.save
+            render json: @tool.to_json
+          else
+            render :json => { :errors => {tool: @tool.errors.full_messages, tag: @tag_errors, user: @user.errors.full_messages }}
+          end
+
+        end
+
       end
 
 
-      def destroy
-
-      end
+      # def destroy
+      #
+      # end
 
 
       def update
@@ -40,7 +49,7 @@
       private
 
       def tool_params
-        params.require(:tool).permit(:name, :description, :url, :tag_strings, :posted_by, :upvotes, :downvotes, :user_id)
+        params.require(:tool).permit(:name, :description, :url, {:tag_strings => []}, :posted_by, :upvotes, :downvotes, :user_id)
       end
 
 
