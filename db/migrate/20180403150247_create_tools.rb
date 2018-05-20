@@ -4,8 +4,8 @@ class CreateTools < ActiveRecord::Migration[5.1]
       t.string :name
       t.text :description
       t.string :url
-      t.integer :upvotes
-      t.integer :downvotes
+      t.integer :upvotes, :default => 0
+      t.integer :downvotes, :default => 0
       t.integer :user_id
 
       t.timestamps
