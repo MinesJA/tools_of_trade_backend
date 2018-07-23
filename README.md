@@ -1,25 +1,4 @@
-# README
+Tools of the Trade (Backend)
+============================
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# tools_of_trade_backend
+See [frontend repo](https://github.com/MinesJA/tools_of_trade_frontend) for full details
