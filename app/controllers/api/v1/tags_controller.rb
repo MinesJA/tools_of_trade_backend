@@ -1,29 +1,26 @@
-module Api
-  module V1
-    class TagsController < ApplicationController
 
-      def index
-        @tags = Tag.all
-        render json: @tags
-      end
+class Api::V1::TagsController < ApplicationController
 
-
-      def show
-
-      end
-
-
-      def create
-        binding.pry
-
-      end
-
-      private
-
-      def tag_params
-
-      end
-
-    end
+  def index
+    @tags = Tag.all
+    render json: @tags
   end
+
+
+  def show
+
+  end
+
+
+  def create
+    binding.pry
+
+  end
+
+  private
+
+  def tag_params
+
+  end
+
 end
