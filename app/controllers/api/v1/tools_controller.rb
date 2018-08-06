@@ -8,12 +8,14 @@ class Api::V1::ToolsController < ApplicationController
 
     # count = params[:number].to_i - 1
 
-    if tags != "undefined" && searchTerm != "undefined"
+    if tags != "" && searchTerm != ""
       puts "Tags and Search Term"
-    elsif tags != "undefined"
+
+
+    elsif tags != ""
       # Only receive tags
 
-    elsif searchTerm != "undefined"
+    elsif searchTerm != ""
       # Only get a searchTerm
 
       @tools = Tool.all.select do |tool|
@@ -21,7 +23,7 @@ class Api::V1::ToolsController < ApplicationController
         end
 
     else
-      @tools = Tool.all.sort_by{|tool| tool.downvotes - tool.upvotes}
+      @tools = Tool.all.sort_by{|tool| tool.downvotes - tool.upvotes}[0..5]
     end
 
 
@@ -69,7 +71,7 @@ class Api::V1::ToolsController < ApplicationController
   private
 
   def tool_params
-    params.require(:tool).permit(:name, :description, :tags, :searchTerm, :url, {:tag_strings => []}, :posted_by, :upvotes, :downvotes, :user_id, :number)
+    params.permit(:name, :description, :tags, :searchTerm, :url, {:tag_strings => []}, :posted_by, :upvotes, :downvotes, :user_id, :number)
   end
 
 
