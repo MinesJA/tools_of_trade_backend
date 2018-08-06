@@ -3,9 +3,29 @@
 class Api::V1::ToolsController < ApplicationController
 
   def index
+    tags = tool_params[:tags]
+    searchTerm = tool_params[:searchTerm].downcase
+
     # count = params[:number].to_i - 1
 
-    @tools = Tool.all.sort_by{|tool| tool.downvotes - tool.upvotes}
+    if tags != "undefined" && searchTerm != "undefined"
+      puts "Tags and Search Term"
+    elsif tags != "undefined"
+      # Only receive tags
+
+    elsif searchTerm != "undefined"
+      # Only get a searchTerm
+
+      @tools = Tool.all.select do |tool|
+          tool.name.downcase.include?(searchTerm) || tool.description.downcase.include?(searchTerm) || tool.url.downcase.include?(searchTerm)
+        end
+
+    else
+      @tools = Tool.all.sort_by{|tool| tool.downvotes - tool.upvotes}
+    end
+
+
+
     # @n_tools = @tools[0..count]
     # currently returns tools sorted from most to least popular. Originally wanted to
     # implement lazy fetcher but will have to return to that
@@ -49,7 +69,7 @@ class Api::V1::ToolsController < ApplicationController
   private
 
   def tool_params
-    params.require(:tool).permit(:name, :description, :url, {:tag_strings => []}, :posted_by, :upvotes, :downvotes, :user_id, :number)
+    params.require(:tool).permit(:name, :description, :tags, :searchTerm, :url, {:tag_strings => []}, :posted_by, :upvotes, :downvotes, :user_id, :number)
   end
 
 
