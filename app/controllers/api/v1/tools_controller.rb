@@ -6,15 +6,36 @@ class Api::V1::ToolsController < ApplicationController
     tags = tool_params[:tags]
     searchTerm = tool_params[:searchTerm].downcase
 
-    # count = params[:number].to_i - 1
-
     if tags != "" && searchTerm != ""
-      puts "Tags and Search Term"
+      tags = tool_params[:tags].split(",")
+      tools = []
+
+      tags.each do |tagString|
+        tag = Tag.find{|tag| tag.name == tagString}
+
+        tools.push(tag.tools)
+      end
+
+      tools = tools.flatten.uniq
+
+      @tools = tools.select do |tool|
+          tool.name.downcase.include?(searchTerm) ||
+          tool.description.downcase.include?(searchTerm)
+        end
 
 
     elsif tags != ""
-      # Only receive tags
+      tags = tool_params[:tags].split(",")
+      tools = []
 
+      tags.each do |tagString|
+        tag = Tag.find{|tag| tag.name == tagString}
+
+        tools.push(tag.tools)
+      end
+
+      @tools = tools.flatten.uniq
+      
     elsif searchTerm != ""
       # Only get a searchTerm
 
@@ -26,14 +47,7 @@ class Api::V1::ToolsController < ApplicationController
       @tools = Tool.all.sort_by{|tool| tool.downvotes - tool.upvotes}[0..5]
     end
 
-
-
-    # @n_tools = @tools[0..count]
-    # currently returns tools sorted from most to least popular. Originally wanted to
-    # implement lazy fetcher but will have to return to that
-
     render json: @tools
-    # render json: Tool.includes(:user), include: ['user']
   end
 
 
