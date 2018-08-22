@@ -7,6 +7,9 @@ Rails.application.routes.draw do
       resources :tools
       resources :users
       resources :tags
+
+
+      get '/login', to: 'users#login', as: 'login'
     end
   end
 
