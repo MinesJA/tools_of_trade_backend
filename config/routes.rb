@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
 
       get '/login', to: 'users#login', as: 'login'
+
+      get '/auth/github', to: 'authentication#github', format: false
     end
   end
 

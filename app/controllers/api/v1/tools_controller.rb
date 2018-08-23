@@ -1,6 +1,7 @@
 
 
 class Api::V1::ToolsController < ApplicationController
+  
 
   def index
     tags = tool_params[:tags]
@@ -35,7 +36,7 @@ class Api::V1::ToolsController < ApplicationController
       end
 
       @tools = tools.flatten.uniq
-      
+
     elsif searchTerm != ""
       # Only get a searchTerm
 
