@@ -1,9 +1,7 @@
-
-
 class Api::V1::ToolsController < ApplicationController
-  
 
   def index
+
     tags = tool_params[:tags]
     searchTerm = tool_params[:searchTerm].downcase
 
@@ -12,10 +10,13 @@ class Api::V1::ToolsController < ApplicationController
       tools = []
 
       tags.each do |tagString|
-        tag = Tag.find{|tag| tag.name == tagString}
+
+        tag = Tag.find_by(name: tagString)
 
         tools.push(tag.tools)
       end
+
+
 
       tools = tools.flatten.uniq
 
@@ -73,10 +74,6 @@ class Api::V1::ToolsController < ApplicationController
       end
     end
   end
-
-
-
-
 
   def update
     @tool = Tool.find(params[:id])

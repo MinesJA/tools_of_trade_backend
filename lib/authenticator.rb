@@ -2,6 +2,7 @@ class Authenticator
 
 
   def github(code)
+    puts "In GITHUB METHOD"
     access_token_resp = fetch_github_access_token(code)
     user_info_resp = fetch_github_user_info(access_token_resp['access_token'])
 
@@ -11,8 +12,6 @@ class Authenticator
       avatar_url: user_info_resp['avatar_url']
     }
   end
-
-
 
   private
 
