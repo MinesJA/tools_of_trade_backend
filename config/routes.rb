@@ -8,8 +8,6 @@ Rails.application.routes.draw do
       resources :users
       resources :tags
 
-      get '/login', to: 'users#login', as: 'login'
-
       get '/auth/github', to: 'authentication#github', format: false
       get '/current_user', to: 'authentication#show'
     end

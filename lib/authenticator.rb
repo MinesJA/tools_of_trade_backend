@@ -16,13 +16,17 @@ class Authenticator
   private
 
   def fetch_github_access_token(code)
-    access_token_url = Rails.application.credentials.gihub[:access_token_url]
+    puts "IN FETCH GITHUB TOKEN METHOD"
+
+    access_token_url = Rails.application.credentials.github[:access_token_url]
     github_client = Rails.application.credentials.github[:client_id]
     github_secret = Rails.application.credentials.github[:client_secret]
 
+
+
     response = RestClient.post(access_token_url, {
       code: code,
-      clien_id: github_client,
+      client_id: github_client,
       client_secret: github_secret
       }, {"Accept": "application/json"})
 
@@ -30,9 +34,10 @@ class Authenticator
   end
 
   def fetch_github_user_info(access_token)
+    puts "IN FETCH GITHUB USER METHOD"
     user_url = Rails.application.credentials.github[:user_url]
 
-    response = RestClient.get(user_url, {access_token: access_token})
+    response = RestClient.get("#{user_url}?access_token=#{access_token}")
     JSON.parse(response)
   end
 

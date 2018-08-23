@@ -1,7 +1,7 @@
 class Api::V1::ToolsController < ApplicationController
 
   def index
-
+    puts "FETCHING TOOLS"
     tags = tool_params[:tags]
     searchTerm = tool_params[:searchTerm].downcase
 
@@ -48,7 +48,7 @@ class Api::V1::ToolsController < ApplicationController
     else
       @tools = Tool.all.sort_by{|tool| tool.downvotes - tool.upvotes}[0..5]
     end
-
+    puts "FINISHED FETCHING TOOLS"
     render json: @tools
   end
 

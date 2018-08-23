@@ -1,17 +1,7 @@
 class ToolSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :url, :upvotes, :downvotes, :user, :tags
+  attributes :id, :name, :description, :url, :upvotes, :downvotes
   belongs_to :user
   has_many :tags
-
-
-  def user
-    object.user
-  end
-
-  def tags
-    object.tags
-  end
-
 
 
 end
