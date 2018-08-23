@@ -9,8 +9,8 @@ class Tool < ApplicationRecord
   validates :url, presence: true
 
 
-  # validates RestClient.get(:url).description.include?("200 OK")
-  # validate that site actually gives back a 200
+
+  
 
 
 

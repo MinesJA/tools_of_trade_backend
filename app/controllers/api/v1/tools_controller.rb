@@ -1,7 +1,6 @@
 class Api::V1::ToolsController < ApplicationController
 
   def index
-    puts "FETCHING TOOLS"
     tags = tool_params[:tags]
     searchTerm = tool_params[:searchTerm].downcase
 
@@ -52,13 +51,6 @@ class Api::V1::ToolsController < ApplicationController
     render json: @tools
   end
 
-
-  def show
-    @tool = Tool.find(params[:id])
-    render json: @tool, status: 200
-  end
-
-
   def create
     @tool = Tool.new(name: tool_params[:name], description: tool_params[:description], url: tool_params[:url])
     @tag_errors = Tag.process_tag_strings(tool_params[:tag_strings], @tool)
@@ -76,14 +68,15 @@ class Api::V1::ToolsController < ApplicationController
   end
 
   def update
-    @tool = Tool.find(params[:id])
+    byebug
+    @tool = Tool.find(tool_params[:id])
     @tool.update(tool_params)
   end
 
   private
 
   def tool_params
-    params.permit(:name, :description, :tags, :searchTerm, :url, {:tag_strings => []}, :posted_by, :upvotes, :downvotes, :user_id, :number)
+    params.permit(:id, :name, :description, :tags, :searchTerm, :url, {:tag_strings => []}, :posted_by, :upvotes, :downvotes, :user_id, :number)
   end
 
 

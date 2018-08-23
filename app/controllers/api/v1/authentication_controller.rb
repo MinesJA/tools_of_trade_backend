@@ -21,7 +21,6 @@ class Api::V1::AuthenticationController < ApplicationController
   end
 
   def show
-    puts "IN SHOW OF AUTHENICATION CURRENT USER"
     render json: curr_user
   end
 
