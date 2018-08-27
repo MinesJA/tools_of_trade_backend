@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_23_211322) do
+ActiveRecord::Schema.define(version: 2018_08_26_232234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(version: 2018_08_23_211322) do
     t.string "url"
     t.integer "upvotes", default: 0, null: false
     t.integer "downvotes", default: 0, null: false
-    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -42,7 +41,7 @@ ActiveRecord::Schema.define(version: 2018_08_23_211322) do
   create_table "user_tools", force: :cascade do |t|
     t.integer "tool_id"
     t.integer "user_id"
-    t.boolean "author"
+    t.boolean "author", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

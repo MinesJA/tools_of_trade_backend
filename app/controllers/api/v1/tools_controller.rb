@@ -1,76 +1,39 @@
 class Api::V1::ToolsController < ApplicationController
 
   def index
+    # Need to figure out best way to add limits to SQL statements
     tags = tool_params[:tags]
-    searchTerm = tool_params[:searchTerm].downcase
+    searchTerm = tool_params[:searchTerm]
 
     if tags != "" && searchTerm != ""
-      tags = tool_params[:tags].split(",")
-      tools = []
-
-      tags.each do |tagString|
-
-        tag = Tag.find_by(name: tagString)
-
-        tools.push(tag.tools)
-      end
-
-
-
-      tools = tools.flatten.uniq
-
-      @tools = tools.select do |tool|
-          tool.name.downcase.include?(searchTerm) ||
-          tool.description.downcase.include?(searchTerm)
-        end
-
-
+      @tools = Tool.tools_from_tags_searchterm(tags, searchTerm)
     elsif tags != ""
-      tags = tool_params[:tags].split(",")
-      tools = []
-
-      tags.each do |tagString|
-        tag = Tag.find{|tag| tag.name == tagString}
-
-        tools.push(tag.tools)
-      end
-
-      @tools = tools.flatten.uniq
-
+      @tools = Tool.tools_from_tags(tags)
     elsif searchTerm != ""
-      # Only get a searchTerm
-
-      @tools = Tool.all.select do |tool|
-          tool.name.downcase.include?(searchTerm) || tool.description.downcase.include?(searchTerm) || tool.url.downcase.include?(searchTerm)
-        end
-
+      @tools = Tool.tools_from_searchterm(searchTerm)
     else
-      @tools = Tool.all.sort_by{|tool| tool.downvotes - tool.upvotes}[0..5]
+      @tools = Tool.all.sort_by{|tool| tool.downvotes - tool.upvotes}
     end
-    puts "FINISHED FETCHING TOOLS"
+
     render json: @tools
   end
 
-  def create
-    @tool = Tool.new(name: tool_params[:name], description: tool_params[:description], url: tool_params[:url])
-    @tag_errors = Tag.process_tag_strings(tool_params[:tag_strings], @tool)
-    @user = User.find_or_create_by(name: tool_params[:posted_by])
-
-    if @tag_errors.none? && @user.valid?
-      @tool.user = @user
-
-      if @tool.save
-        render json: @tool.to_json
-      else
-        render :json => { :errors => {tool: @tool.errors.full_messages, tag: @tag_errors, user: @user.errors.full_messages }}
-      end
-    end
-  end
 
   def update
-    byebug
     @tool = Tool.find(tool_params[:id])
     @tool.update(tool_params)
+  end
+
+  def create
+    @user = curr_user
+
+    if(!!@user)
+      byebug
+      @tool = @user.post_tool(name: tool_params[:name], description: tool_params[:description], url: , tag_strings:)
+      render json: @tool
+    else
+      render json: {error: "No user found"}
+    end
   end
 
   private

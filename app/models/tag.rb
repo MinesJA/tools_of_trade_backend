@@ -5,19 +5,11 @@ class Tag < ApplicationRecord
   validates :name, uniqueness: true
 
 
-  def self.process_tag_strings(tag_strings, tool)
-    @errors = []
-
-    tag_strings.each do |tag_string|
+  def self.process_tag_strings(tag_strings:, tool:)
+    tag_strings.map do |tag_string|
       tag = Tag.find_or_create_by(name: tag_string)
-      if tag.valid?
-        tool.tags << tag
-      else
-        @errors << tag
-      end
+      tool.tags << tag
     end
-    
-    @errors
   end
 
 
