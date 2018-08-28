@@ -21,7 +21,7 @@ class Api::V1::AuthenticationController < ApplicationController
   end
 
   def show
-    render json: curr_user
+    render json: curr_user, include: ['tools', 'tools.tags']
   end
 
 end

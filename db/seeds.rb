@@ -35,16 +35,16 @@ alex = User.create(
   login: "alexgriff",
   avatar_url: "https://avatars1.githubusercontent.com/u/12286943?s=460&v=4")
 
+  # _____________________
+  # Post Tools
+  # _____________________
+
 fontPair = jon.post_tool(
   name:"Font Pair",
   description: "Font Pair is a great tool that lets your pair Google Fonts. It gives you visual examples of font pairings and is very easily navigated and filtered. Definitely worth checking out.",
   url:"https://fontpair.co/",
   upvotes: 10,
   downvotes: 5)
-
-# _____________________
-# Post Tools
-# _____________________
 
 typio = jon.post_tool(
   name:"Typ.io",
