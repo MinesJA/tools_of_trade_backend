@@ -29,10 +29,7 @@ class User < ApplicationRecord
   end
 
   def remove_saved_tool(tool_id:)
-    user_tool = UserTool.where(user_id: self.id, tool_id: tool_id)
-
-    
-    user_tool
+    UserTool.where(user_id: self.id, tool_id: tool_id)
   end
 
   def remove_posted_tool(tool_id:)
