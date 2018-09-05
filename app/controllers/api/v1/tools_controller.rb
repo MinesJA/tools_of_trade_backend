@@ -1,5 +1,6 @@
 class Api::V1::ToolsController < ApplicationController
 
+
   def index
     # Need to figure out best way to add limits to SQL statements
     tags = tool_params[:tags]
@@ -19,13 +20,35 @@ class Api::V1::ToolsController < ApplicationController
   end
 
 
+  def save
+    if(!!curr_user)
+      @user_tool = curr_user.save_tool(tool_id: tool_params[:id])
+      if(@user_tool.save)
+
+        render json: {tool: @user_tool.tool}, status: 200
+      else
+        render json: {error: "Tool already exists."}, status: 406
+      end
+    else
+      render json: {error: "No user found"}, status: 401
+    end
+  end
+
+
+  # def unsave
+  #
+  # end
+  #
+  # def vote
+  #   # check if upvote or downvote
+  # end
+
+
   def update
     user = curr_user
 
     if(!!user)
-      byebug
       @tool = user.save_tool(tool_params[:id])
-      byebug
       render json: @tool
     else
       render json: {error: "No user found"}
@@ -54,7 +77,6 @@ class Api::V1::ToolsController < ApplicationController
 
     if(!!@user)
       @tool = @user.remove_saved_tool(tool_id: tool_params[:id])
-
       render json: @tool
     else
       render json: {error: "No user found"}
