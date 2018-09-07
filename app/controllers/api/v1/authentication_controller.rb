@@ -8,8 +8,6 @@ class Api::V1::AuthenticationController < ApplicationController
     name = user_info[:name]
     avatar_url = user_info[:avatar_url]
 
-
-
     user = User.where(login: login).first_or_create!(
       name: name,
       avatar_url: avatar_url
@@ -17,7 +15,7 @@ class Api::V1::AuthenticationController < ApplicationController
 
     token = TokenMgr.encode(user)
 
-    redirect_to "http://localhost:3001?token=#{token}"
+    redirect_to "https://tools-of-trade.herokuapp.com?token=#{token}"
   end
 
   def show
