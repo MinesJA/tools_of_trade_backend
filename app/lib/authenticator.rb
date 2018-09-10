@@ -18,7 +18,6 @@ class Authenticator
 
   def fetch_github_access_token(code)
     access_token_url = Rails.application.credentials.github[:access_token_url]
-    puts "Access_token_url: #{access_token_url}"
     github_client = Rails.application.credentials.github[:client_id]
     puts "Github_client: #{github_client}"
     github_secret = Rails.application.credentials.github[:client_secret]
