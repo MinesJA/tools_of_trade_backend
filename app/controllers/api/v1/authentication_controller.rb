@@ -2,7 +2,9 @@ class Api::V1::AuthenticationController < ApplicationController
 
   def github
     authenticator = Authenticator.new
+    puts "Github method, authenticator, params code:#{params[:code]}"
     user_info = authenticator.github(params[:code])
+    puts "Github method, user_info:#{user_info}"
 
     login = user_info[:login]
     name = user_info[:name]
