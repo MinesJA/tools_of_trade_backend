@@ -15,7 +15,8 @@ class Api::V1::AuthenticationController < ApplicationController
 
     token = TokenMgr.encode(user)
 
-    redirect_to "https://tools-of-trade.herokuapp.com?token=#{token}"
+    # redirect_to "https://tools-of-trade.herokuapp.com?token=#{token}"
+    redirect_to "#{Rails.application.credentials[Rails.env.to_sym][:site_url]}?token=#{token}"
   end
 
   def show
