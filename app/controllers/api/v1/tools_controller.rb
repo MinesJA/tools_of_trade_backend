@@ -2,7 +2,6 @@ class Api::V1::ToolsController < ApplicationController
 
 
   def index
-    # Need to figure out best way to add limits to SQL statements
     tags = tool_params[:tags]
     searchTerm = tool_params[:searchTerm]
 
@@ -33,15 +32,6 @@ class Api::V1::ToolsController < ApplicationController
       render json: {error: "No user found"}, status: 401
     end
   end
-
-
-  # def unsave
-  #
-  # end
-  #
-  # def vote
-  #   # check if upvote or downvote
-  # end
 
 
   def update
