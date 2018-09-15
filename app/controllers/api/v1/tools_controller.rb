@@ -3,17 +3,18 @@ class Api::V1::ToolsController < ApplicationController
 
   def index
     tags = tool_params[:tags]
-    searchTerm = tool_params[:searchTerm]
-
-    if tags != "" && searchTerm != ""
-      @tools = Tool.tools_from_tags_searchterm(tags, searchTerm)
+    search_term = tool_params[:search_term]
+    if tags != "" && search_term != ""
+      @tools = Tool.tools_from_tags_search_term(tags, search_term)
     elsif tags != ""
       @tools = Tool.tools_from_tags(tags)
-    elsif searchTerm != ""
-      @tools = Tool.tools_from_searchterm(searchTerm)
+    elsif search_term != ""
+      @tools = Tool.tools_from_search_term(search_term)
     else
       @tools = Tool.all.sort_by{|tool| tool.downvotes - tool.upvotes}
     end
+
+    puts "HERE ARE THE TOOLS: ", @tools
 
     render json: @tools
   end
@@ -76,7 +77,7 @@ class Api::V1::ToolsController < ApplicationController
   private
 
   def tool_params
-    params.permit(:id, :name, :description, :tags, :searchTerm, :url, {:tag_strings => []}, :posted_by, :upvotes, :downvotes, :user_id, :number)
+    params.permit(:id, :name, :description, :tags, :search_term, :url, {:tag_strings => []}, :posted_by, :upvotes, :downvotes, :user_id, :number)
   end
 
 end
