@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'https://tools-of-trade.herokuapp.com'
+    origins Rails.application.credentials[Rails.env.to_sym][:site_url]
 
     resource '*',
       headers: :any,

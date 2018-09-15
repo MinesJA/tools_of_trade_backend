@@ -34,7 +34,7 @@ Rails.application.configure do
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
-  config.allowed_cors_origins = ["http://localhost:3001"]
+  config.allowed_cors_origins = [Rails.application.credentials[Rails.env.to_sym][:site_url]]
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
