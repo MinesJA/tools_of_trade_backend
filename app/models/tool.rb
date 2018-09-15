@@ -22,8 +22,6 @@ class Tool < ApplicationRecord
     # array_of_arrays_tools = tags_array.map do |tag|
     #     Tool.joins(:tags).where({tags: {name: tag}})
     # end
-    # Thi
-
 
     tags_array = tag_string.split(",")
 

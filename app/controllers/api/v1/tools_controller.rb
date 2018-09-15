@@ -68,7 +68,8 @@ class Api::V1::ToolsController < ApplicationController
 
     if(!!@user)
       @tool = @user.remove_saved_tool(tool_id: tool_params[:id])
-      render json: @tool
+
+      render json: {body: @tool}, status: 200
     else
       render json: {error: "No user found"}
     end

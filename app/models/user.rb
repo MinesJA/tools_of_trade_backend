@@ -2,19 +2,6 @@ class User < ApplicationRecord
   has_many :user_tools
   has_many :tools, through: :user_tools
 
-  # validate :can_only_save_tool_once
-  #
-  # def can_only_save_tool_once
-  #   byebug
-  #   if expiration_date.present? && expiration_date < Date.today
-  #     errors.add(:expiration_date, "can't be in the past")
-  #   end
-  # end
-
-
-
-
-
   def post_tool(name:, description:, url:, tag_strings:)
     tool = self.tools.create(name: name, description: description, url: url)
     user_tool = UserTool.find_by(user_id: self.id, tool_id: tool.id)
@@ -43,7 +30,8 @@ class User < ApplicationRecord
 
 
   def remove_saved_tool(tool_id:)
-    UserTool.where(user_id: self.id, tool_id: tool_id)
+    user_tool = UserTool.find_by(user_id: self.id, tool_id: tool_id).destroy
+    Tool.find(tool_id)
   end
 
 
