@@ -11,7 +11,7 @@ Rails.application.routes.draw do
         delete '/tools/:id/unsave', to: 'tools#unsave'
       end
 
-      resources :tools, only: [:index]
+      resources :tools, only: [:index, :update]
       resources :tags, only: [:index]
 
       get '/auth/github', to: 'authentication#github', format: false

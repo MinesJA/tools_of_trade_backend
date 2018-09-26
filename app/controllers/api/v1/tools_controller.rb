@@ -39,15 +39,21 @@ class Api::V1::ToolsController < ApplicationController
     user = curr_user
 
     if(!!user)
-      @tool = user.save_tool(tool_params[:id])
-      render json: @tool
+
+      if(!!tool_params[:upDown])
+        @tool = Tool.find(tool_params[:id])
+        if tool_params[:upDown] > 0 then @tool.upvotes += 1 else @tool.downvotes += 1 end
+        @tool.save
+        render json: @tool, status: 200
+      else
+        @tool = user.save_tool(tool_params[:id])
+        render json: @tool
+      end
+
     else
       render json: {error: "No user found"}
     end
 
-    user.tools << @tool
-
-    render json: @tool
   end
 
 
@@ -66,6 +72,7 @@ class Api::V1::ToolsController < ApplicationController
   def destroy
     @user = curr_user
 
+
     if(!!@user)
       @tool = @user.remove_saved_tool(tool_id: tool_params[:id])
 
@@ -78,7 +85,7 @@ class Api::V1::ToolsController < ApplicationController
   private
 
   def tool_params
-    params.permit(:id, :name, :description, :tags, :search_term, :url, {:tag_strings => []}, :posted_by, :upvotes, :downvotes, :user_id, :number)
+    params.permit(:id, :name, :description, :tags, :search_term, :url, {:tag_strings => []}, :posted_by, :upvotes, :downvotes, :user_id, :number, :upDown)
   end
 
 end
