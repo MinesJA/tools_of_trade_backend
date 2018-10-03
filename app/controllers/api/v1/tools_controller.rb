@@ -14,8 +14,6 @@ class Api::V1::ToolsController < ApplicationController
       @tools = Tool.all.sort_by{|tool| tool.downvotes - tool.upvotes}
     end
 
-    puts "HERE ARE THE TOOLS: ", @tools
-
     render json: @tools
   end
 
