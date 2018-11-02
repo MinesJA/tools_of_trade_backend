@@ -10,9 +10,20 @@ class Tool < ApplicationRecord
   validates :url, presence: true
 
 
+  def index(limit, page=0)
+    Tool.order("upvotes - downvotes" => :desc).limit(limit).offset((page*limit).abs)
+    # "SELECT * FROM tools ORDER BY ABS(Upvotes - Downvotes) LIMIT ABS(page * limit) limit"
+
+    # ActiveRecord::Base.connection.execute("sql statement")
+    # @tool.downvotes & @tool.upvotes
+  end
+
+
   def author
     UserTool.find_by(tool_id: self.id, author: true).user
   end
+
+
 
 
   def self.tools_from_tags(tag_string)

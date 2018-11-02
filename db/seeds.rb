@@ -129,6 +129,17 @@ puts "Created #{Tool.count} tools."
 puts "Created #{Tag.count} tags."
 
 
+@polymer = Tool.create(name: "Polymer", description: "The Polymer Project helps you deliver amazing...", url: "www.polymer-project.org", upvotes: 50, downvotes: 40)
+@angular = Tool.create(name: "Angular", description: "Angular is a development platform for building applications across web...", upvotes: 40, downvotes: 40)
+@lighthouse = Tool.create(name: "Lighthouse", description: "Lighthouse is an open-source, automated tool for improving the quality...", upvotes: 40, downvotes: 50)
+@puppeteer = Tool.create(name: "Puppeteer", description: "Puppeteer is a Node library which provides a high-level API to control headless...", upvotes: 100, downvotes: 50)
+@workbox = Tool.create(name: "Workbox", description: "Workbox is a set of service worker libraries and tools that make...", upvotes: 50, downvotes: 100)
+@jquery = Tool.create(name: "JQuery", description: )
+
+
+
+
+
 # _____________________
 # Save Tools
 # _____________________
@@ -149,3 +160,60 @@ ann.save_tool(tool_id: element.id)
 ann.save_tool(tool_id: reactSketch.id)
 
 puts "Saved #{UserTool.count} tools."
+
+
+
+
+
+# @jon = User.create(
+#   name: "Jonathan Mines",
+#   login: "MinesJA",
+#   avatar_url: "https://avatars2.githubusercontent.com/u/30729672?s=460&v=4")
+#
+# @ann = User.create(
+#   name: "Ann Duong",
+#   login: "thuyanduong-flatiron",
+#   avatar_url: "https://avatars3.githubusercontent.com/u/39737217?s=460&v=4")
+#
+# @fontPair = @jon.post_tool(
+#   name:"Font Pair",
+#   description: "Font Pair is a great tool that lets your pair Google Fonts. It gives you visual examples of font pairings and is very easily navigated and filtered. Definitely worth checking out.",
+#   url:"https://fontpair.co/",
+#   tag_strings: ["fonts", "frontend"])
+#
+# @typio = @jon.post_tool(
+#   name:"Typ.io",
+#   description:"A really rich and cool font discovery tool. Typ.io boasts more than 2,248 type samples, that have been assembled into a bunch of lists to help you choose fonts for your next project.",
+#   url:"http://typ.io/",
+#   tag_strings: ["fonts", "frontend"])
+#
+# @reactSketch = @jon.post_tool(
+#   name:"React Sketch.app",
+#   description:"React Sketchapp renders React components to Sketch in real time.",
+#   url: "http://airbnb.io/react-sketchapp/?ref=stackshare",
+#   tag_strings: ["sketch", "design"])
+#
+# @element = @jon.post_tool(
+#   name:"Element",
+#   description:"A Vue 2.0-based desktop UI library, Element was built by the engineers at Ele.me, 'one of the biggest food delivery companies in China.''",
+#   url: "http://element.eleme.io/#/en-US",
+#   tag_strings: ["library", "vue", "desktop", "ui"])
+#
+# @feather = @ann.post_tool(
+#   name:"Feather",
+#   description:"Feather is a simple open source collection of icons.",
+#   url:"https://feathericons.com/",
+#   tag_strings: ["icons", "frontend"])
+#
+# @hammer = @ann.post_tool(
+#   name:"Hammer.js",
+#   description: "Add touch gestures to your webapp.",
+#   url:"http://hammerjs.github.io/",
+#   tag_strings: ["frontend", "animation", "styling"])
+#
+#
+# @localStack = @ann.post_tool(
+#   name:"LocalStack",
+#   description:"LocalStack is a fully functional local AWS cloud stack by none other than the good folks over at Atlassian. Features include continuous integration, cost-effective testing, and speed and ease of use.",
+#   url:"https://localstack.cloud/",
+#   tag_strings: ["cloud", "testing"])

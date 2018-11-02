@@ -4,6 +4,7 @@ class Api::V1::ToolsController < ApplicationController
   def index
     tags = tool_params[:tags]
     search_term = tool_params[:search_term]
+
     if tags != "" && search_term != ""
       @tools = Tool.tools_from_tags_search_term(tags, search_term)
     elsif tags != ""
@@ -69,7 +70,6 @@ class Api::V1::ToolsController < ApplicationController
 
   def destroy
     @user = curr_user
-
 
     if(!!@user)
       @tool = @user.remove_saved_tool(tool_id: tool_params[:id])
