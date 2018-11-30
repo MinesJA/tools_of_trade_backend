@@ -11,6 +11,4 @@ class ToolSerializer < ActiveModel::Serializer
   end
 
 
-
-
 end

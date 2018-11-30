@@ -10,12 +10,37 @@ class Tool < ApplicationRecord
   validates :url, presence: true
 
 
-  def index(limit, page=0)
-    Tool.order("upvotes - downvotes" => :desc).limit(limit).offset((page*limit).abs)
-    # "SELECT * FROM tools ORDER BY ABS(Upvotes - Downvotes) LIMIT ABS(page * limit) limit"
+  # can likely use "scope" for some of these queries
+
+
+  # Look into creating services folder. Check out:
+  # https://github.com/18F/dolores-landingham-slack-bot/tree/develop/app/services
+
+
+  def self.index(limit:, page: 0)
+    self.order("upvotes - downvotes" => :desc).limit(limit).offset((page*limit).abs)
+
+    # Should also include everything that comes with serializer
 
     # ActiveRecord::Base.connection.execute("sql statement")
-    # @tool.downvotes & @tool.upvotes
+    # Right query, but does not show the calculated populariy column
+
+    # SELECT * FROM tools ORDER BY ROUND(upvotes - downvotes) DESC LIMIT ABS(page * limit), limit;
+
+    # Shows caclculated popularity column
+    # SELECT *, ROUND(Upvotes - Downvotes) AS popularity FROM tools ORDER BY popularity DESC LIMIT ABS(page * limit), limit
+  end
+
+
+
+
+  def self.order_popularity
+    # popularity = upvotes - downvotes
+
+  end
+
+  def limit_offset
+
   end
 
 

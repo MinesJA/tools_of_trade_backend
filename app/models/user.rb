@@ -1,6 +1,21 @@
 class User < ApplicationRecord
   has_many :user_tools
   has_many :tools, through: :user_tools
+  belongs_to :person
+
+
+
+
+  # query
+    # asking a question
+  # command
+    # changing something
+    # service
+    # PostTool
+    # pt = PostTool.new
+    # pt.run
+    # def run
+      # post_tool
 
   def post_tool(name:, description:, url:, tag_strings:)
     tool = self.tools.create(name: name, description: description, url: url)
